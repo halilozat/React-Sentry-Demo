@@ -1,7 +1,6 @@
 import './App.css';
 
 function App() {
-  return <div>Hello</div>;
+  return <button onClick={methodDoesNotExist}>Break the world</button>;
 }
-
 export default App;
