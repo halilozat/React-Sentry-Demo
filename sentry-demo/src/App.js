@@ -1,6 +1,16 @@
 import './App.css';
+import * as Sentry from '@sentry/react';
 
 function App() {
-  return <button onClick={methodDoesNotExist}>Break the world</button>;
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        throw Error('button error');
+      }}
+    >
+      Break the world
+    </button>
+  );
 }
-export default App;
+export default Sentry.withProfiler(App);
