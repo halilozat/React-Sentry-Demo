@@ -16,19 +16,15 @@ function App() {
         throw new Error('data length error');
       }
     } catch (error) {
-      // Sentry.captureException(new Error('clean as never'), (scope) => {
-      //   scope.clear();
-      //   scope.setTag('clean', 'slate');
-      //   return scope;
-      // });
-
-      const scope = new Sentry.Scope();
-      scope.setTag('clean', 'slate');
-      scope.setTag('section', 'articles');
-      Sentry.captureException(new Error('something went wronggg'), scope);
-
+      Sentry.withScope(function (scope) {
+        scope.setTag('my-tag', data[0].user);
+        scope.setLevel('warning');
+        scope.setExtra('data', data);
+        // will be tagged with my-tag="my value"
+        Sentry.captureException(new Error('my error!!! 444'));
+      });
       console.log('error');
-      console.log(data);
+      console.log(data[0].user);
       // Sentry.captureMessage('error');
       // Sentry.addBreadcrumb(error);
     }
