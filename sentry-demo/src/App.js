@@ -14,7 +14,7 @@ function App() {
     {
       id: 2,
       user: 'halil2',
-      usename: 'halilozat',
+      username: 'halilozat',
       email: 'hozat@gmail.com',
       password: '123',
     },
@@ -39,7 +39,13 @@ function App() {
         scope.setTag('my-tag', data[0].user);
         scope.setLevel('warning');
         scope.setExtra('data', data);
-        Sentry.captureException(new Error('my error! try'));
+        Sentry.captureException(new Error('my error! tryed'));
+
+        scope.addBreadcrumb({
+          type: 'error', // predefined types
+          category: 'error',
+          level: Sentry.Severity.Error,
+        });
       });
 
       console.log('error');
